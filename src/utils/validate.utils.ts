@@ -1,3 +1,5 @@
+import { err } from './log.utils';
+
 const ALPHANUMERIC_EXP = /^[a-z0-9]*$/i;
 
 /**
@@ -39,10 +41,10 @@ export function hasLength ( val:string|number, min:number, max?:number ) {
     // Match exact if max i ommited.
     max = isValue(max) ? max : min;
     if ( min > max ) {
-        throw new Error(`[udi] Expected "min" to equal or smaller then "max" to do a range check, got [${min}, ${max}]`);
+        err(`Expected "min" to equal or smaller then "max" to do a range check, got [${min}, ${max}]`);
     }
     if ( min < 0 ||  max < 0 ) {
-        throw new Error(`[udi] Expected "min" and "max" to be positive integers, got [${min}, ${max}]`);
+        err(`Expected "min" and "max" to be positive integers, got [${min}, ${max}]`);
     }
     const length = val.toString().length;
     return min <= length && length <= max;

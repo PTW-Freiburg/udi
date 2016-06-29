@@ -9,12 +9,21 @@ describe('[udi]', () => {
         });
 
         it('should create an UDI', () => {
-            let result = createPrimaryDataStructure({
-                lic: 'EABC',
-                pcn: 123456,
-                unitOfMeasure: 0
-            });
-            expect(result).to.be.a('string');
+            expect(createPrimaryDataStructure({
+                    lic: 'SNOW',
+                    pcn: 'MAKER',
+                    unitOfMeasure: 0
+                }))
+                .to.be.a('string')
+                .to.equal('+SNOWMAKER0Q');
+
+            expect(createPrimaryDataStructure({
+                    lic: 'BLUE',
+                    pcn: 'UNICORN',
+                    unitOfMeasure: 7
+                }))
+                .to.be.a('string')
+                .to.equal('+BLUEUNICORN7N');
         });
 
         it('should check input conformity', () => {
@@ -64,7 +73,5 @@ describe('[udi]', () => {
                 unitOfMeasure: -1
             })).to.throw(Error);
         });
-
     });
-
 });

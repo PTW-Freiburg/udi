@@ -1,4 +1,6 @@
+import { err } from './utils/log.utils';
 import { hasLength, isAlphanumeric, isValue } from './utils/validate.utils';
+import { generateCheckChar } from './check-char/check-char';
 
 /**
  * Configuration of the parameters required to create
@@ -47,14 +49,15 @@ export interface PrimaryDataStructureConfig {
 export function createPrimaryDataStructure ({ lic, pcn, unitOfMeasure }:PrimaryDataStructureConfig) {
     // Check input conformity.
     if ( !(isAlphanumeric(lic) && hasLength(lic, 4)) ) {
-        throw new Error(`[udi] Expected "lic" to be an alphanumeric value with a length of 4, got ${lic}`);
+        err(`Expected "lic" to be an alphanumeric value with a length of 4, got ${lic}`);
     }
     if ( !(isAlphanumeric(pcn) && hasLength(pcn, 1, 18)) ) {
-        throw new Error(`[udi] Expected "pcn" to be an alphanumeric value with a length of 1-18, got ${pcn}`);
+        err(`Expected "pcn" to be an alphanumeric value with a length of 1-18, got ${pcn}`);
     }
     if ( !(isValue(unitOfMeasure) && /^[0-9]$/.test(unitOfMeasure.toString())) ) {
-        throw new Error(`[udi] Expected "unitOfMeasure" to be an integer between 0-9, got ${unitOfMeasure}`);
+        err(`Expected "unitOfMeasure" to be an integer between 0-9, got ${unitOfMeasure}`);
     }
 
-    return `+${lic}${pcn}${unitOfMeasure}C`;
+    let pds = `+${lic}${pcn}${unitOfMeasure}`;
+    return pds + generateCheckChar(pds);
 }
