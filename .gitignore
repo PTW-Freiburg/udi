@@ -1,3 +1,5 @@
-node_modules
-build
 .tmp
+node_modules
+dist
+lib
+typings
