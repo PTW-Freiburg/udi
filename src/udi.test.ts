@@ -1,5 +1,8 @@
 import { expect } from 'chai';
-import { createPrimaryDataStructure } from './udi';
+import {
+    createPrimaryDataStructure,
+    createSecondaryDataStructure,
+    createCombinedDataStructure } from './udi';
 
 describe('[udi]', () => {
 
@@ -24,6 +27,17 @@ describe('[udi]', () => {
                 }))
                 .to.be.a('string')
                 .to.equal('+BLUEUNICORN7N');
+        });
+
+        it('should create an UDI w/o check char', () => {
+            expect(createPrimaryDataStructure({
+                    lic: 'SNOW',
+                    pcn: 'MAKER',
+                    unitOfMeasure: 0,
+                    noCheckChar: true
+                }))
+                .to.be.a('string')
+                .to.equal('+SNOWMAKER0');
         });
 
         it('should check input conformity', () => {
@@ -72,6 +86,66 @@ describe('[udi]', () => {
                 pcn: 'A123GD',
                 unitOfMeasure: -1
             })).to.throw(Error);
+        });
+    });
+
+
+    describe('Secondary Data Strcuture', () => {
+        it('should be a function', () => {
+            expect(createSecondaryDataStructure).to.be.a('function');
+        });
+
+        it('should create an UDI', () => {
+            expect(createSecondaryDataStructure({
+                    lot: '10X3'
+                }))
+                .to.be.a('string')
+                .to.equal('+$$710X3Y');
+
+            expect(createSecondaryDataStructure({
+                    lot: 'LT34AA'
+                }))
+                .to.be.a('string')
+                .to.equal('+$$7LT34AAV');
+        });
+
+        it('should check input conformity', () => {
+            // Lot/batch/sn => length 0-18, alphanumeric
+            expect(() => createSecondaryDataStructure({
+                lot: '235LKJ6HJK687HKJNBK7866578AS'
+            })).to.throw(Error);
+            expect(() => createSecondaryDataStructure({
+                lot: 'QWERTFG€678'
+            })).to.throw(Error);
+        });
+    });
+
+
+    describe('Combined Data Strcuture', () => {
+        it('should be a function', () => {
+            expect(createCombinedDataStructure).to.be.a('function');
+        });
+
+        it('should create an UDI', () => {
+            expect(createCombinedDataStructure({
+                    lic: 'A999',
+                    pcn: '1234',
+                    unitOfMeasure: 5
+                }, {
+                    lot: '10X3'
+                }))
+                .to.be.a('string')
+                .to.equal('+A99912345/$$710X3/');
+
+            expect(createCombinedDataStructure({
+                    lic: 'ABCD',
+                    pcn: '99875',
+                    unitOfMeasure: 2
+                }, {
+                    lot: 'XXX'
+                }))
+                .to.be.a('string')
+                .to.equal('+ABCD998752/$$7XXX7');
         });
     });
 });

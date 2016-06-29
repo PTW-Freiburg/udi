@@ -3,5 +3,9 @@
         "target": "es5",
         "module": "commonjs",
         "moduleResolution": "node"
-    }
+    },
+    "files": [
+        "node_modules/typescript/lib/lib.es6.d.ts",
+        "typings/index.d.ts"
+    ]
 }
