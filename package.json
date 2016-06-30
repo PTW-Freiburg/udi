@@ -1,7 +1,7 @@
 {
-  "name": "udi",
+  "name": "ptw-udi",
   "version": "0.0.1",
-  "description": "Generate an unique devide identification as speficied by HIBC.",
+  "description": "Generate an unique device identification as speficied by HIBC.",
   "main": "lib/udi.js",
   "typings": "lib/udi.d.ts",
   "scripts": {
