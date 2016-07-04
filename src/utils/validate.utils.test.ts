@@ -1,5 +1,6 @@
 import { expect } from 'chai';
-import { isValue, isAlphanumeric, hasLength } from './validate.utils';
+import { DateFormat } from './format.utils';
+import { isValue, isAlphanumeric, isNumeric, hasLength, isDate } from './validate.utils';
 
 describe('[utils/validate]', () => {
 
@@ -45,6 +46,27 @@ describe('[utils/validate]', () => {
     });
 
 
+    describe('Numeric', () => {
+        it('should be a function', () => {
+            expect(isNumeric).to.be.a('function');
+        });
+
+        it('should return "true" if input is Numeric', () => {
+            expect(isNumeric(1253)).to.be.true;
+            expect(isNumeric(0)).to.be.true;
+            expect(isNumeric('')).to.be.true;
+        });
+
+        it('should return "false" if input is not Numeric', () => {
+            expect(isNumeric(undefined)).to.be.false;
+            expect(isNumeric(null)).to.be.false;
+            expect(isNumeric('abc')).to.be.false;
+            expect(isNumeric('!"§$%&/()')).to.be.false;
+            expect(isNumeric(1.5)).to.be.false;
+        });
+    });
+
+
     describe('Within Range', () => {
 
         it('should be a function', () => {
@@ -71,12 +93,29 @@ describe('[utils/validate]', () => {
         });
 
         it('should throw if given "min" is larger than "max" value', () => {
-            expect(hasLength.bind(null, 0, 1000, 100)).to.throw(Error);
+            expect(() => hasLength(0, 1000, 100)).to.throw(Error);
         });
 
         it('should throw if given "min"/"max" are negative', () => {
-            expect(hasLength.bind(null, 150, 100, -100)).to.throw(Error);
-            expect(hasLength.bind(null, 0, -100, 100)).to.throw(Error);
+            expect(() => hasLength(150, 100, -100)).to.throw(Error);
+            expect(() => hasLength(0, -100, 100)).to.throw(Error);
+        });
+    });
+
+
+    describe('Date', () => {
+        it('should be a function', () => {
+            expect(isDate).to.be.a('function');
+        });
+
+        it('should return "true" if input is Numeric', () => {
+            expect(isDate(1253, DateFormat.MMYY)).to.be.true;
+            expect(isDate('20160101', DateFormat.YYYYMMDD)).to.be.true;
+        });
+
+        it('should return "false" if input is not Numeric', () => {
+            expect(isDate(12, DateFormat.MMYY)).to.be.false;
+            expect(isDate('12.12.2015', DateFormat.YYMMDDHH)).to.be.false;
         });
     });
 });

@@ -1,5 +1,7 @@
 import { err } from './log.utils';
+import { DateFormat } from './format.utils';
 
+const NUMERIC_EXP = /^[0-9]*$/;
 const ALPHANUMERIC_EXP = /^[a-z0-9]*$/i;
 
 /**
@@ -26,6 +28,16 @@ export function isAlphanumeric ( val:string|number ) {
     return isValue(val) && ALPHANUMERIC_EXP.test(val.toString());
 }
 
+/**
+ * Checks whether a given vlaue is numeric.
+ *
+ * @export
+ * @param {(string|number)} val
+ * @returns
+ */
+export function isNumeric ( val:string|number ) {
+    return isValue(val) && NUMERIC_EXP.test(val.toString() );
+}
 
 /**
  * Checks whether a given value has a certain min/max length.
@@ -48,4 +60,17 @@ export function hasLength ( val:string|number, min:number, max?:number ) {
     }
     const length = val.toString().length;
     return min <= length && length <= max;
+}
+
+/**
+ * Check wheter date is correctly formated.
+ *
+ * @export
+ * @param {string} date
+ * @param {DateFormat} format
+ * @returns
+ */
+export function isDate ( date:string|number, format:DateFormat ) {
+    if ( !isValue(format) ) { return true; }
+    return isNumeric(date) && hasLength(date, DateFormat[format].length);
 }

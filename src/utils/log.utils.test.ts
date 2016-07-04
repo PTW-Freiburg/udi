@@ -8,11 +8,11 @@ describe('[utils/log]', () => {
         });
 
         it('should throw an error', () => {
-            expect(err.bind(null, 'some message')).to.throw(Error);
+            expect(() => err('some message')).to.throw(Error);
         });
 
         it('should have message', () => {
-            expect(err.bind(null, 'some message')).to.throw(/some message/);
+            expect(() => err('some message')).to.throw(/some message/);
         });
     });
 });
