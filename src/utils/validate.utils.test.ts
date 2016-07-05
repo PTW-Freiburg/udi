@@ -117,5 +117,9 @@ describe('[utils/validate]', () => {
             expect(isDate(12, DateFormat.MMYY)).to.be.false;
             expect(isDate('12.12.2015', DateFormat.YYMMDDHH)).to.be.false;
         });
+
+        it('should return "true" if format is empty', () => {
+            expect(isDate(12, null)).to.be.true;
+        });
     });
 });
