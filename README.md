@@ -9,15 +9,17 @@ This library is very small (~6KB minified, no external dependencies) and its sol
 
 ## Install
 
-```
+```sh
 $ npm install ptw-udi --save
 ```
+
+*Note: If you just want the embed the library in your website, use the file found in `dist/udi.min.js`.*
 
 ## Usage
 
 The public API consists of 3 methods to create different types of data structures (primary, secondary and combined) and one method to transform the created data structure to a string that can be placed below the barcode.
 
-Below are some examples that show how to create unique device identifications with `ptw-udi`. For a complete overview of the API, please check out the included declarations files `lib/udi.d.ts`. If you're using [Typescript](http://www.typescriptlang.org/) you also can import `PrimaryDataStructureConfig` and `SecondaryDataStructureConfig` for additional help with the inevitable large signature of the API methods.
+Below are some examples that show how to create unique device identifications with `ptw-udi`. For a complete overview of the API, please check out the included declarations files `lib/udi.d.ts`. If you're using [Typescript](http://www.typescriptlang.org/) you also can import `PrimaryDataStructureConfig` and `SecondaryDataStructureConfig` for additional help with the inevitable large method signature.
 
 ### Primary Data Structure
 
@@ -93,6 +95,16 @@ const udi = createCombinedDataStructure({
     manufactureDate: '20160101'
 });
 // udi = "+A123BJC5D6E71G1/$$73C001/S0001/16D20160101/14D20200101Y"
+```
+
+### Errors
+
+`ptw-udi` will throw errors if the input does not adhere the HIBCC specification. For instance, if you pass a quantity to the library that does not has the required length an `Error` will be thrown. We tried to make the errors helpful, so that you know how to fix the problematic input.
+
+A `quantity` with the format `QQQQQ` and value of `'100'` will generate the following error message:
+
+```sh
+$ Expected "quantity.value" to be an numeric value with length of "5", but was "100".
 ```
 
 ## Scripts
