@@ -13,13 +13,14 @@
     "clean:dist": "rimraf dist",
     "clean:lib": "rimraf lib",
     "clean:cover": "rimraf coverage spec-js",
-    "cover": "npm-run-all cover:all cover:serve",
-    "cover:report": "rimraf spec-js && tsc -m commonjs --outDir spec-js --sourceMap --target ES5 -d && node node_modules/istanbul/lib/cli.js cover -x 'spec-js/**/*.test.js' -x 'spec-js/*.test.js' _mocha spec-js/**/*.test.js spec-js/*.test.js && remap-istanbul -i ./coverage/coverage.raw.json -o coverage/html-report -t html",
+    "cover": "npm-run-all cover:report cover:serve",
+    "cover:report": "rimraf spec-js && tsc -m commonjs --outDir spec-js --sourceMap --target ES5 -d && node node_modules/istanbul/lib/cli.js cover -x 'spec-js/**/*.test.js' -x 'spec-js/*.test.js' _mocha spec-js/**/*.test.js spec-js/*.test.js && remap-istanbul -i coverage/coverage.raw.json -o coverage/html-report -t html",
     "cover:serve": "http-server coverage/html-report -a 'localhost' -p 3001 -o",
     "test": "cross-env NODE_ENV=test mocha-webpack --webpack-config webpack.config.js --require source-map-support/register \"src/**/*.test.ts\"",
     "travis": "npm-run-all clean typings cover:report build",
     "typings": "typings install",
     "watch": "watch \"npm test && echo ⏱  WAITING...\" src -d -u -w=15",
+    "postinstall": "npn-run-all typings",
     "prepublish": "npm-run-all clean typings test build"
   },
   "repository": {

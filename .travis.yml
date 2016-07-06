@@ -1,5 +1,5 @@
 language: node_js
 node_js:
   - "5"
-script: npm run cover
+script: npm run travis
 after_script: npm i -g codecov.io && cat coverage/lcov.info | codecov
