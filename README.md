@@ -1,6 +1,6 @@
 # PTW UDI
 
-Generates an unique device identification as speficied by HIBC UDI (ANSI/HIBC 2.5 - 2015).
+Generates an unique device identification as speficied by HIBCC UDI (ANSI/HIBC 2.5 - 2015).
 You can find more information about the specification of the unique device indification on the [HIBC website](http://www.hibcc.org/udi-labeling-standards/).
 
 This library is very small (~6KB minified, no external dependencies) and its sole purpose is to generate a HIBC-conform data structure that uniquely identifies a product. It will automatically create a string with the correct order of information and check characters. The string can then be used by your favorite barcode generating library to generate a Bar-/QR-Code based on the generated string.
