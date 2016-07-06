@@ -16,6 +16,7 @@
     "cover": "npm-run-all cover:report cover:serve",
     "cover:report": "rimraf spec-js && tsc -m commonjs --outDir spec-js --sourceMap --target ES5 -d && node node_modules/istanbul/lib/cli.js cover -x 'spec-js/**/*.test.js' -x 'spec-js/*.test.js' _mocha spec-js/**/*.test.js spec-js/*.test.js && remap-istanbul -i coverage/coverage.raw.json -o coverage/html-report -t html",
     "cover:serve": "http-server coverage/html-report -a 'localhost' -p 3001 -o",
+    "coveralls": "cat coverage/lcov.info | node_modules/.bin/coveralls",
     "test": "cross-env NODE_ENV=test mocha-webpack --webpack-config webpack.config.js --require source-map-support/register \"src/**/*.test.ts\"",
     "travis": "npm-run-all clean typings cover:report build",
     "typings": "typings install",
@@ -57,6 +58,7 @@
   "license": "MIT",
   "devDependencies": {
     "chai": "3.5.0",
+    "coveralls": "2.11.9",
     "cross-env": "1.0.8",
     "http-server": "0.9.0",
     "istanbul": "1.0.0-alpha.2",
