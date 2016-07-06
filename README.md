@@ -1,5 +1,7 @@
 # PTW UDI
 
+[![Build Status](https://travis-ci.org/PTW-Freiburg/store.svg?branch=master)](https://travis-ci.org/PTW-Freiburg/udi) [![npm version](https://badge.fury.io/js/ptw-udi.svg)](https://badge.fury.io/js/ptw-udi)
+
 Generates an unique device identification as speficied by HIBCC UDI (ANSI/HIBC 2.5 - 2015).
 You can find more information about the specification of the unique device indification on the [HIBC website](http://www.hibcc.org/udi-labeling-standards/).
 
