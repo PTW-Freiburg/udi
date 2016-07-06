@@ -1,4 +1,5 @@
 "use strict";
+
 const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
 const env = process.env.NODE_ENV;
