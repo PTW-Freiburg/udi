@@ -34,7 +34,9 @@ switch(env) {
     case 'production':
         config.plugins.push(
             new webpack.optimize.UglifyJsPlugin({
-                compressor: {
+                comments: false,
+                beatuify: false,
+                compress: {
                     pure_getters: true,
                     unsafe: true,
                     unsafe_comps: true,
