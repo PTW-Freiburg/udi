@@ -20,7 +20,7 @@
     "travis": "npm-run-all clean typings cover:report build",
     "typings": "typings install",
     "watch": "watch \"npm test && echo ⏱  WAITING...\" src -d -u -w=15",
-    "postinstall": "npn-run-all typings",
+    "postinstall": "npm-run-all typings",
     "prepublish": "npm-run-all clean typings test build"
   },
   "repository": {
