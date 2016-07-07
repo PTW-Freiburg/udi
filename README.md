@@ -2,8 +2,8 @@
 
 [![Build Status](https://travis-ci.org/PTW-Freiburg/udi.svg?branch=master)](https://travis-ci.org/PTW-Freiburg/udi) [![Coverage Status](https://coveralls.io/repos/github/PTW-Freiburg/udi/badge.svg?branch=master)](https://coveralls.io/github/PTW-Freiburg/udi?branch=master) [![npm version](https://badge.fury.io/js/ptw-udi.svg)](https://badge.fury.io/js/ptw-udi)
 
-Generates an unique device identification as speficied by HIBCC UDI (ANSI/HIBC 2.5 - 2015).
-You can find more information about the specification of the unique device indification on the [HIBC website](http://www.hibcc.org/udi-labeling-standards/).
+Generates an unique device identification as specified by HIBCC UDI (ANSI/HIBC 2.5 - 2015).
+You can find more information about the specification of the unique device identification on the [HIBCC website](http://www.hibcc.org/udi-labeling-standards/).
 
 This library is very small (~6KB minified, no external dependencies) and its sole purpose is to generate a HIBC-conform data structure that uniquely identifies a product. It will automatically create a string with the correct order of information and check characters. The string can then be used by your favorite barcode generating library to generate a Bar-/QR-Code based on the generated string.
 
@@ -13,13 +13,13 @@ This library is very small (~6KB minified, no external dependencies) and its sol
 $ npm install ptw-udi --save
 ```
 
-*Note: If you just want the embed the library in your website, use the file found in `dist/udi.min.js`.*
+*Note: If you just want to embed the library in your website, use the file found in `dist/udi.min.js`.*
 
 ## Usage
 
 The public API consists of 3 methods to create different types of data structures (primary, secondary and combined) and one method to transform the created data structure to a string that can be placed below the barcode.
 
-Below are some examples that show how to create unique device identifications with `ptw-udi`. For a complete overview of the API, please check out the included declarations files `lib/udi.d.ts`. If you're using [Typescript](http://www.typescriptlang.org/) you also can import `PrimaryDataStructureConfig` and `SecondaryDataStructureConfig` for additional help with the inevitable large method signature.
+Below are some examples that show how to create unique device identifications with `ptw-udi`. For an complete overview of the API, please check out the included declarations files `lib/udi.d.ts`. If you're using [Typescript](http://www.typescriptlang.org/), you also can import `PrimaryDataStructureConfig` and `SecondaryDataStructureConfig` for additional help with the inevitable large method signature.
 
 ### Primary Data Structure
 
@@ -99,7 +99,7 @@ const udi = createCombinedDataStructure({
 
 ### Errors
 
-`ptw-udi` will throw errors if the input does not adhere the HIBCC specification. For instance, if you pass a quantity to the library that does not has the required length an `Error` will be thrown. We tried to make the errors helpful, so that you know how to fix the problematic input.
+`ptw-udi` will throw errors if the input does not adhere the HIBCC specification. For instance, if you pass a quantity to the library that does not has the required length, an `Error` will be thrown. We tried to make the errors helpful, so that you know how to fix the problematic input.
 
 A `quantity` with the format `QQQQQ` and value of `'100'` will generate the following error message:
 
