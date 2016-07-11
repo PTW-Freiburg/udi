@@ -1,12 +1,12 @@
 {
   "name": "ptw-udi",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Generate an unique device identification as speficied by HIBC.",
   "main": "lib/udi.js",
   "typings": "lib/udi.d.ts",
   "scripts": {
     "build": "npm-run-all clean build:cjs build:browser build:browser:min",
-    "build:cjs": "cross-env NODE_ENV=lib webpack src/udi.ts lib/udi.js",
+    "build:cjs": "cross-env NODE_ENV=lib tsc --outDir lib --target ES5 -d src/udi.ts",
     "build:browser": "cross-env NODE_ENV=browser webpack src/udi.ts dist/udi.js",
     "build:browser:min": "cross-env NODE_ENV=production webpack src/udi.ts dist/udi.min.js",
     "clean": "npm-run-all clean:dist clean:lib",
