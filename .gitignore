@@ -1,3 +1,4 @@
+.vscode/.browse*
 .tmp
 node_modules
 dist
