@@ -8,8 +8,8 @@ import {
     isValue,
     isDate } from './utils/validate.utils';
 import {
-    HIBCC_LITERAL,
-    HIBCC_DATA_DELIMITER,
+    HIBC_LITERAL,
+    HIBC_DATA_DELIMITER,
     FieldFlag,
     QuantityFormat,
     DateFormat,
@@ -141,7 +141,7 @@ export interface SecondaryDataStructureConfig extends PrimaryDataStructureConfig
  * Create primary data structure.
  *
  * Consists of:
- * (1) HIBCC Supplier Labeling Flag Character ("+")
+ * (1) HIBC Supplier Labeling Flag Character ("+")
  * (2) Label Identification Code
  * (3) Labelers Product or Catalog Number
  * (4) Unit of Measure ID
@@ -153,7 +153,7 @@ export interface SecondaryDataStructureConfig extends PrimaryDataStructureConfig
  */
 export function createPrimaryDataStructure ({ lic, pcn, unitOfMeasure, noCheckChar = false }:PrimaryDataStructureConfig) {
     validatePrimaryDataConfig({ lic, pcn, unitOfMeasure });
-    let pds = `${HIBCC_LITERAL}${lic}${pcn}${unitOfMeasure}`;
+    let pds = `${HIBC_LITERAL}${lic}${pcn}${unitOfMeasure}`;
     return pds + (noCheckChar ? '' : generateCheckChar(pds));
 }
 
@@ -162,7 +162,7 @@ export function createPrimaryDataStructure ({ lic, pcn, unitOfMeasure, noCheckCh
  * Create secondary data structure.
  *
  * Consists of:
- * (1) HIBCC Supplier Labeling Flag Character ("+")
+ * (1) HIBC Supplier Labeling Flag Character ("+")
  * (2) Quantity/Date/Lot or Serial Number Reference Identifier
  * (3) Quantity Field, format indicator followed by two-digit
  *     or five-digit quantity, for use after the Reference Identifier.
@@ -214,7 +214,7 @@ export function createSecondaryDataStructure ({
     }
     const manDate = formatManufactureDate(manufactureDate);
 
-    let sds = `${HIBCC_LITERAL}${qtyFlag}${qty}${exDate}${field}${manDate}${supExDate}${linkChar}`;
+    let sds = `${HIBC_LITERAL}${qtyFlag}${qty}${exDate}${field}${manDate}${supExDate}${linkChar}`;
     return sds + (noCheckChar ? '' : generateCheckChar(sds));
 }
 
@@ -246,7 +246,7 @@ export function createCombinedDataStructure (config:SecondaryDataStructureConfig
     let secondary = createSecondaryDataStructure(config);
 
     // Replace "+" with seperator "/" and remove "Link Character".
-    secondary = `${HIBCC_DATA_DELIMITER}${secondary.slice(1, -1)}`;
+    secondary = `${HIBC_DATA_DELIMITER}${secondary.slice(1, -1)}`;
 
     let cds = `${primary}${secondary}`;
     return cds + generateCheckChar(cds);
@@ -275,7 +275,7 @@ function validatePrimaryDataConfig ({lic, pcn, unitOfMeasure}:PrimaryDataStructu
 
 /**
  * Checks that the quantity is correctly formatted (number + length).
- * If so, return a formatted quantity according to the HIBCC specification.
+ * If so, return a formatted quantity according to the HIBC specification.
  *
  * @param {FormatValueObject<QuantityFormat, string>} {value, format}
  * @returns
@@ -290,7 +290,7 @@ function validateAndFormatQty ({value, format}:FormatValueObject<QuantityFormat,
 
 /**
  * Checks that the manufacture/expiration date is correctly formatted (number + length).
- * If so, return a formatted date according to the HIBCC specification.
+ * If so, return a formatted date according to the HIBC specification.
  *
  * @param {FormatValueObject<ExpDateFormat, string>} expDate
  * @returns

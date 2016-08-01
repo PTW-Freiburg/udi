@@ -1,19 +1,19 @@
 import { isValue } from './validate.utils';
 
 
-export const HIBCC_LITERAL = '+';
-export const HIBCC_QTY_FLAG = '$$';
+export const HIBC_LITERAL = '+';
+export const HIBC_QTY_FLAG = '$$';
 export const HIBBC_BARCODE_DELIMITER = '*';
-export const HIBCC_DATA_DELIMITER = '/';
-export const HIBCC_SERIAL_DELIMITER = `${HIBCC_DATA_DELIMITER}S`;
+export const HIBC_DATA_DELIMITER = '/';
+export const HIBC_SERIAL_DELIMITER = `${HIBC_DATA_DELIMITER}S`;
 
-export const HIBCC_MANUFATURE_DATE_PREFIX = '16D';
-export const HIBCC_LONG_EXP_DATE_PREFIX = '14D';
+export const HIBC_MANUFATURE_DATE_PREFIX = '16D';
+export const HIBC_LONG_EXP_DATE_PREFIX = '14D';
 
 /**
  * The field descriptor "B" (see ANSI/HIBC 2.5 - 2015, 2.2.1)
  * can be either the lot/batch or a serial number. Depending
- * which one is specified the "HIBCC Qty Flag" is prepended
+ * which one is specified the "HIBC Qty Flag" is prepended
  * with a "+".
  */
 export enum FieldFlag {
@@ -22,7 +22,7 @@ export enum FieldFlag {
 }
 
 /**
- * Format Lot/SN fields according to the HIBCC specification.
+ * Format Lot/SN fields according to the HIBC specification.
  *
  * @export
  * @param {(string|number)} lot
@@ -31,7 +31,7 @@ export enum FieldFlag {
  */
 export function formatField (lot:string|number, sn:string|number) {
     if ( isValue(lot) && isValue(sn) ) {
-        return `${lot}${HIBCC_SERIAL_DELIMITER}${sn}`;
+        return `${lot}${HIBC_SERIAL_DELIMITER}${sn}`;
     }
     return (lot && lot.toString() || '') + (sn && sn.toString() || '');
 }
@@ -48,19 +48,19 @@ export enum QuantityFormat {
 
 /**
  * Get the "HIBBCC Qty Flag". If the flag inidcates the usage of
- * a serial number the `HIBCC_LITERAL` is appended.
+ * a serial number the `HIBC_LITERAL` is appended.
  *
  * @export
  * @param {FieldFlag} flag
  * @returns
  */
 export function getQtyFlag ( flag:FieldFlag ) {
-    return `${HIBCC_QTY_FLAG}${flag === FieldFlag.LOT ? '' : HIBCC_LITERAL}`;
+    return `${HIBC_QTY_FLAG}${flag === FieldFlag.LOT ? '' : HIBC_LITERAL}`;
 }
 
 /**
  * Returns a formated string that represents the quantity as
- * specified by the HIBCC. Meaning, the quantity will get
+ * specified by the HIBC. Meaning, the quantity will get
  * prepended with the `QuantityFormat` (integer).
  *
  * @export
@@ -112,7 +112,7 @@ export function formatExpDate ( date?:string, format?:DateFormat ) {
         case DateFormat.MMYY:
             return date;
         case DateFormat.YYYYMMDD:
-            return `${HIBCC_DATA_DELIMITER}${HIBCC_LONG_EXP_DATE_PREFIX}${date}`;
+            return `${HIBC_DATA_DELIMITER}${HIBC_LONG_EXP_DATE_PREFIX}${date}`;
         default:
             return `${format}${date}`;
     }
@@ -128,11 +128,11 @@ export function formatExpDate ( date?:string, format?:DateFormat ) {
  */
 export function formatManufactureDate ( date:string ) {
     if ( !isValue(date) ) { return ''; }
-    return `${HIBCC_DATA_DELIMITER}${HIBCC_MANUFATURE_DATE_PREFIX}${date}`;
+    return `${HIBC_DATA_DELIMITER}${HIBC_MANUFATURE_DATE_PREFIX}${date}`;
 }
 
 /**
- * Formats a HIBCC UDI to "human readable" form that should be placed
+ * Formats a HIBC UDI to "human readable" form that should be placed
  * under a barcode (ANSI/HIBC 2.5 - 2015, Chapter 4.1).
  *
  * @export
