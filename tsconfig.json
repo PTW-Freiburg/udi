@@ -2,6 +2,9 @@
     "compilerOptions": {
         "target": "es5",
         "module": "commonjs",
-        "moduleResolution": "node"
+        "moduleResolution": "node",
+        "types": [
+            "mocha", "chai", "node"
+        ]
     }
 }
